@@ -11,6 +11,8 @@ const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
+const path = require('path');
+
 //Here we are configuring express to use body-parser as middle-ware.
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -19,8 +21,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Initialize the main project folder
-app.use(express.static('website'));
-
+app.use(express.static(path.resolve('../../dist')));
 
 // Setup Server
 const port = 8000;
@@ -32,6 +33,10 @@ const server = app.listen(port, () => {
 
 /* Routes */
 // GET route
+app.get('/', (req, res) => {
+    res.sendFile(path.resolve('../../dist/index.html'));
+})
+
 app.get('/all', (req, res) => {
     res.send(projectData);
 });

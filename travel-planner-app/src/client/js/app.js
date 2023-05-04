@@ -2,6 +2,7 @@
 const baseUrl = 'https://api.openweathermap.org/data/2.5/weather?zip=';
 // Personal API Key for OpenWeatherMap API
 const apiKey = '&appid=028f1a9d317578516fd3770eef8e37e7&units=imperial';
+const server = 'http://localhost:8000';
 
 
 /* Events */
@@ -14,7 +15,7 @@ function generateEntry() {
 
     getWeather(baseUrl, zipCode, apiKey)
     .then(data => {
-        postData('/addWeather', {
+        postData(`${server}/addWeather`, {
             temp: data.main.temp,
             date: newDate,
             feel: feel
@@ -62,7 +63,7 @@ const postData = async (url = '', data = {}) => {
 
 // GET Project Data and updates the UI dynamically
 const updateUI = async () => {
-    const res = await fetch('/all');
+    const res = await fetch(`${server}/all`);
 
     try {
         const data = await res.json();
@@ -75,3 +76,5 @@ const updateUI = async () => {
         console.log('error', error);
     }
 };
+
+export { generateEntry }
