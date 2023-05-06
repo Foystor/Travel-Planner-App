@@ -31,7 +31,7 @@ body {
 
     // form
     .form {
-        display: flex;
+        display: none;
         flex-direction: column;
         align-items: center;
         background: #e5e3e3;
@@ -52,7 +52,7 @@ body {
 
     // cards
     .card-holder {
-        display: grid;
+        display: none;
         grid-template-columns: 1fr;
         grid-auto-rows: minmax(300px, auto);
         gap: 10px;
@@ -121,7 +121,7 @@ button {
         background-color: white;
         margin-right: 10px;
 
-        &:hover {
+        &:hover:enabled {
             background-color: black;
             color: white;
         }
@@ -131,7 +131,7 @@ button {
         border-color: white;
         background-color: transparent;
 
-        &:hover {
+        &:hover:enabled {
             background-color: white;
         }
     }

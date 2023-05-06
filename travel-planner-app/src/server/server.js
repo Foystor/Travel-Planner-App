@@ -44,6 +44,11 @@ app.get('/all', (req, res) => {
     res.send(projectData);
 });
 
+app.get('/remove', (req, res) => {
+    projectData = {};
+    res.send(projectData);
+});
+
 // POST route
 app.post('/addTrip', (req, res) => {
     const data = req.body;
