@@ -31,8 +31,10 @@
       </div>
     </div>
 
-    <main class="card-holder">
-      <!-- card item -->
+    <main class="card-holder"></main>
+
+    <!-- card item -->
+    <template id="template">
       <article class="card-item">
         <img alt="Destination" src="">
 
@@ -46,25 +48,25 @@
             </div>
             <div>
               <span>Departing:</span>
-              <time id="date"></time>
+              <time class="date"></time>
             </div>
           </header>
 
           <!-- button -->
           <div>
-            <button class="left-btn" id="save">Save</button>
-            <button class="right-btn" id="remove">Remove</button>
+            <button class="left-btn save">Save</button>
+            <button class="right-btn remove">Remove</button>
           </div>
 
           <!-- detail -->
-          <div><span class="place"></span> is <span id="day"></span> away</div>
+          <div><span class="place"></span> is <span class="day"></span> away</div>
           <div>
             <span>Typical weather for then is:</span>
-            <div class="weather" id="temp"></div>
-            <span class="weather" id="detail"></span>
+            <div class="weather temp"></div>
+            <span class="weather detail"></span>
           </div>
         </div>
       </article>
-    </main>
+    </template>
   </body>
 </html>

@@ -1,5 +1,5 @@
-// Setup empty JS object to act as endpoint for all routes
-projectData = {};
+// Setup empty JS array to act as endpoint for all routes
+projectData = [];
 
 // Require Express to run server and routes
 const express = require('express');
@@ -45,7 +45,7 @@ app.get('/all', (req, res) => {
 });
 
 app.get('/remove', (req, res) => {
-    projectData = {};
+    projectData.splice(req.query.index, 1);
     res.send(projectData);
 });
 
@@ -53,7 +53,7 @@ app.get('/remove', (req, res) => {
 app.post('/addTrip', (req, res) => {
     const data = req.body;
 
-    projectData = {
+    const entry = {
         place: data.place,
         date: data.date,
         days: data.days,
@@ -61,6 +61,7 @@ app.post('/addTrip', (req, res) => {
         temp: data.temp,
         weather: data.weather
     };
+    projectData.push(entry);
 
     res.send(projectData);
 });

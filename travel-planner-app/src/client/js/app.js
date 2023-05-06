@@ -50,21 +50,26 @@ function getDaysDiff(date) {
  * Begin Main Functions
  *
 */
-// GET Project Data and updates the UI dynamically
+// Updates the UI dynamically
 const updateUI = async (place, date, diffDays, img, temp, detail) => {
-    document.querySelector('img').src = img;
-    document.querySelectorAll('.place').forEach(i => i.textContent = place);
-    document.querySelector('#date').textContent = date;
+    const template = document.querySelector('template');
+    const clone = template.content.cloneNode(true);
+
+    clone.querySelector('img').src = img;
+    clone.querySelectorAll('.place').forEach(i => i.textContent = place);
+    clone.querySelector('.date').textContent = date;
 
     if (diffDays < 2) {
-        document.querySelector('#day').textContent = `${diffDays} day`;
+        clone.querySelector('.day').textContent = `${diffDays} day`;
     } else {
-        document.querySelector('#day').textContent = `${diffDays} days`;
+        clone.querySelector('.day').textContent = `${diffDays} days`;
     }
 
-    document.querySelector('#temp').textContent = temp;
-    document.querySelector('#detail').textContent = detail;
-    document.querySelector('.card-holder').style.display = 'grid';
+    clone.querySelector('.temp').textContent = temp;
+    clone.querySelector('.detail').textContent = detail;
+
+    // append new item
+    document.querySelector('.card-holder').appendChild(clone);
 };
 
 // Generate trip
@@ -73,7 +78,7 @@ function generateEntry() {
     const date = document.querySelector('#date-input').value;
 
     if (!place || !date) {
-        alert('Please enter information');
+        alert('Please enter the information');
         return;
     }
 
@@ -82,6 +87,7 @@ function generateEntry() {
     if(diffDays < 0) {
         alert('Date passed!');
     } else {
+        // Geonames API
         postData(`${server}/geonames`, {
             base: geoNamesBaseUrl,
             place: place
@@ -92,6 +98,7 @@ function generateEntry() {
             const lat = res.geonames[0].lat;
             const lon = res.geonames[0].lng;
 
+            // Weatherbit API
             postData(`${server}/weatherbit`, {
                 base: (diffDays < 7) ? weatherbitCurrentBaseUrl : weatherbitFutureBaseUrl,
                 location: `lat=${lat}&lon=${lon}`
@@ -103,6 +110,7 @@ function generateEntry() {
                 const temp = (diffDays < 7) ? `${data.temp}°C` : `High ${data.max_temp}, Low ${data.min_temp}`;
                 const detail = data.weather.description;
 
+                // Pixabay API
                 postData(`${server}/pixabay`, {
                     base: pixabayBaseUrl,
                     place: place
@@ -132,10 +140,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.log(data);
 
         // if projectData is not empty, update UI
-        if (Object.keys(data).length !== 0) {
-            updateUI(data.place, data.date, data.days, data.img, data.temp, data.weather);
+        if (data.length !== 0) {
+            data.forEach(i => {
+                updateUI(i.place, i.date, i.days, i.img, i.temp, i.weather);
+            });
             // disable save button
-            document.querySelector('#save').disabled = true;
+            document.querySelectorAll('.save').forEach(i => i.disabled = true);
         }
     } catch(error) {
         console.log('error', error);
@@ -157,35 +167,45 @@ document.querySelector('#cancel').addEventListener('click', () => {
     document.querySelector('#date-input').value = '';
 });
 
-// Save button
-document.querySelector('#save').addEventListener('click', () => {
-    document.querySelector('#save').disabled = true;
+// Save and Remove button
+document.querySelector('.card-holder').addEventListener('click', async (evt) => {
 
-    // post data to projectData
-    postData(`${server}/addTrip`, {
-        place: document.querySelector('.place').textContent,
-        date: document.querySelector('#date').textContent,
-        days: document.querySelector('#day').textContent,
-        img: document.querySelector('img').src,
-        temp: document.querySelector('#temp').textContent,
-        weather: document.querySelector('#detail').textContent
-    })
-    .then(data => console.log(data));
-});
+    const target = evt.target;
 
-// Remove button
-document.querySelector('#remove').addEventListener('click', async () => {
-    document.querySelector('.card-holder').style.display = 'none';
-    document.querySelector('#save').disabled = false;
+    if (target.nodeName === 'BUTTON') {
+        const item = target.closest('.card-item');
 
-    // remove data from projectData
-    const res = await fetch(`${server}/remove`);
+        // check if it's save button
+        if (target.classList.contains('save')) {
+            target.disabled = true;
 
-    try {
-        const data = await res.json();
-        console.log(data);
-    } catch(error) {
-        console.log('error', error);
+            // post data to projectData
+            postData(`${server}/addTrip`, {
+                place: item.querySelector('.place').textContent,
+                date: item.querySelector('.date').textContent,
+                days: item.querySelector('.day').textContent,
+                img: item.querySelector('img').src,
+                temp: item.querySelector('.temp').textContent,
+                weather: item.querySelector('.detail').textContent
+            })
+            .then(data => console.log(data));
+
+        } else {
+            // remove button
+            const holder = document.querySelector('.card-holder');
+            const index = [...holder.children].indexOf(item);
+            holder.removeChild(item);
+
+            // remove data from projectData
+            const res = await fetch(`${server}/remove?index=${index}`);
+
+            try {
+                const data = await res.json();
+                console.log(data);
+            } catch(error) {
+                console.log('error', error);
+            }
+        }
     }
 });
 
