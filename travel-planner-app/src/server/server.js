@@ -20,6 +20,9 @@ app.use(bodyParser.json());
 // Cors for cross origin allowance
 app.use(cors());
 
+const dotenv = require('dotenv');
+dotenv.config({ path: '../../.env' });
+
 // Initialize the main project folder
 app.use(express.static(path.resolve('../../dist')));
 
@@ -42,14 +45,47 @@ app.get('/all', (req, res) => {
 });
 
 // POST route
-app.post('/addWeather', (req, res) => {
+app.post('/addTrip', (req, res) => {
     const data = req.body;
 
     projectData = {
-        temp: data.temp,
+        place: data.place,
         date: data.date,
-        feel: data.feel
+        days: data.days,
+        img: data.img,
+        temp: data.temp,
+        weather: data.weather
     };
 
     res.send(projectData);
+});
+
+app.post('/geonames', async (req, res) => {
+    const param = req.body;
+
+    const data = await fetch(param.base + param.place + process.env.GEONAMES_KEY)
+        .then(response => response.json());
+
+    // return it to the browser
+    res.json(data)
+});
+
+app.post('/weatherbit', async (req, res) => {
+    const param = req.body;
+
+    const data = await fetch(param.base + param.location + process.env.WEATHERBIT_KEY)
+        .then(response => response.json());
+
+    // return it to the browser
+    res.json(data)
+});
+
+app.post('/pixabay', async (req, res) => {
+    const param = req.body;
+
+    const data = await fetch(param.base + param.place + process.env.PIXABAY_KEY)
+        .then(response => response.json());
+
+    // return it to the browser
+    res.json(data)
 });
