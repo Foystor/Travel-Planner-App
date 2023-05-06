@@ -44,6 +44,11 @@ function getDaysDiff(date) {
     return diffDays;
 }
 
+// Random image
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
+
 
 /**
  * End Helper Functions
@@ -117,7 +122,8 @@ function generateEntry() {
                 })
                 .then(res => {
                     console.log('Pixabay', res);
-                    const img = res.hits[0].webformatURL;
+                    const i = getRandomInt(res.hits.length);
+                    const img = res.hits[i].webformatURL;
 
                     updateUI(place, date, diffDays, img, temp, detail);
                 });
