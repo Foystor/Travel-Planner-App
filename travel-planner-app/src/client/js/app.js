@@ -38,8 +38,8 @@ function getDaysDiff(date) {
     const now = new Date();
     date = new Date(date);
 
-    const diffTime = date - now;
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const diffTime = date.getTime() - now.getTime();
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
     return diffDays;
 }
