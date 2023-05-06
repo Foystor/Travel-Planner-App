@@ -16,29 +16,28 @@
 
     <!-- form -->
     <div class="form">
-      <div>
-        <label for="zip">My trip to:</label>
-        <input type="text" id="zip" placeholder="Enter Location">
+      <div class="input-area">
+        <label for="place-input">My trip to:</label>
+        <input type="text" id="place-input" placeholder="Enter Location">
       </div>
-      <div>
-        <label for="feelings">Departing:</label>
-        <input type="text" id="feelings" placeholder="MM/DD/YYYY"></input>
+      <div class="input-area">
+        <label for="date-input">Departing:</label>
+        <input type="date" id="date-input" required>
       </div>
-
       <!-- button -->
       <div>
-        <button class="save">save trip</button>
-        <button class="remove">remove trip</button>
+        <button class="left-btn" id="generate">Generate</button>
+        <button class="right-btn" id="cancel">Cancel</button>
       </div>
     </div>
 
     <main class="card-holder">
       <!-- card item -->
       <article class="card-item">
-        <img src="https://pixabay.com/get/gf2abe42191ce9caf8b8638a489fae227e0a6b8117ee8b5fd2ccc5bb85af8f408f86256c0d070e86a5aa4f0a70d51b245_640.jpg"/>
+        <img alt="Destination" src="https://pixabay.com/get/gf2abe42191ce9caf8b8638a489fae227e0a6b8117ee8b5fd2ccc5bb85af8f408f86256c0d070e86a5aa4f0a70d51b245_640.jpg">
 
         <!-- info -->
-        <main class="info">
+        <div class="info">
           <!-- summary -->
           <header>
             <div>
@@ -53,18 +52,18 @@
 
           <!-- button -->
           <div>
-            <button class="save">save trip</button>
-            <button class="remove">remove trip</button>
+            <button class="left-btn" id="save">Save</button>
+            <button class="right-btn" id="remove">Remove</button>
           </div>
 
           <!-- detail -->
-          <section class="detail">
-            <div><span class="place">Paris, France</span> is <span id="day">220</span> days away</div>
+          <div><span class="place">Paris, France</span> is <span id="day">220</span> days away</div>
+          <div>
             <span>Typical weather for then is:</span>
             <div class="weather">High <span id="high">-46</span>, Low <span id="low">-35</span></div>
             <span class="weather" id="weather-detail">Mostly cloudy throughout the day.</span>
-          </section>
-        </main>
+          </div>
+        </div>
       </article>
     </main>
   </body>
