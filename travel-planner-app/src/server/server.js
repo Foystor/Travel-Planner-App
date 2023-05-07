@@ -1,5 +1,5 @@
 // Setup empty JS array to act as endpoint for all routes
-projectData = [];
+let projectData = [];
 
 // Require Express to run server and routes
 const express = require('express');
@@ -95,3 +95,5 @@ app.post('/pixabay', async (req, res) => {
     // return it to the browser
     res.json(data)
 });
+
+module.exports = server;
