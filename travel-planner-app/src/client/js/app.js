@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // if projectData is not empty, update UI
         if (data.length !== 0) {
             data.forEach(i => {
-                updateUI(i.place, i.date, i.days, i.img, i.temp, i.weather);
+                updateUI(i.place, i.date, i.days.replace(/ .*/,''), i.img, i.temp, i.weather);
             });
             // disable save button
             document.querySelectorAll('.save').forEach(i => i.disabled = true);
