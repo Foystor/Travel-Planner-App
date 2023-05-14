@@ -1,5 +1,5 @@
-import { generateEntry } from './js/app'
+import { generateEntry } from './js/app';
 
-import './styles/style.scss'
+import './styles/style.scss';
 
-export { generateEntry }
+export { generateEntry };

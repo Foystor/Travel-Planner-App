@@ -4,6 +4,8 @@
     "main": "index.js",
     "scripts": {
         "test": "jest --no-cache --watchAll --detectOpenHandles --forceExit",
+        "lint": "eslint src",
+        "lint:create": "eslint --init",
         "start": "node src/server/server.js",
         "build": "webpack --config webpack.prod.js",
         "dev": "webpack-dev-server  --config webpack.dev.js --open"
@@ -32,6 +34,7 @@
         "babel-loader": "^8.0.6",
         "clean-webpack-plugin": "^3.0.0",
         "css-loader": "^5.0.1",
+        "eslint": "^8.40.0",
         "html-webpack-plugin": "^3.2.0",
         "jest": "^26.6.3",
         "mini-css-extract-plugin": "^0.9.0",

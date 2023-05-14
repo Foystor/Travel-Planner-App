@@ -2,10 +2,6 @@
  * Define Global Variables
  *
 */
-const geoNamesBaseUrl = 'http://api.geonames.org/searchJSON?name_equals=';
-const weatherbitCurrentBaseUrl = 'http://api.weatherbit.io/v2.0/current?';
-const weatherbitFutureBaseUrl = 'http://api.weatherbit.io/v2.0/forecast/daily?';
-const pixabayBaseUrl = 'https://pixabay.com/api/?q=';
 const server = 'http://localhost:8000';
 
 
@@ -34,7 +30,7 @@ const postData = async (url = '', data = {}) => {
 };
 
 // See how soon the trip is
-function getDaysDiff(date) {
+const getDaysDiff = date => {
     const now = new Date();
     date = new Date(date);
 
@@ -47,12 +43,12 @@ function getDaysDiff(date) {
     const diffDays = parseInt(diffTime / (1000 * 60 * 60 * 24));
 
     return diffDays;
-}
+};
 
 // Random image
-function getRandomInt(max) {
+const getRandomInt = max => {
     return Math.floor(Math.random() * max);
-}
+};
 
 
 /**
@@ -83,7 +79,13 @@ const updateUI = async (place, date, diffDays, img, temp, detail) => {
 };
 
 // Generate trip
-function generateEntry() {
+const generateEntry = () => {
+    // API related
+    const geoNamesBaseUrl = 'http://api.geonames.org/searchJSON?name_equals=';
+    const weatherbitCurrentBaseUrl = 'http://api.weatherbit.io/v2.0/current?';
+    const weatherbitFutureBaseUrl = 'http://api.weatherbit.io/v2.0/forecast/daily?';
+    const pixabayBaseUrl = 'https://pixabay.com/api/?q=';
+    // get input value
     const place = document.querySelector('#place-input').value;
     const date = document.querySelector('#date-input').value;
 
@@ -132,10 +134,10 @@ function generateEntry() {
 
                     updateUI(place, date, diffDays, img, temp, detail);
                 });
-            })
-        })
+            });
+        });
     }
-}
+};
 
 
 /**
@@ -179,7 +181,7 @@ document.querySelector('#cancel').addEventListener('click', () => {
 });
 
 // Save and Remove button
-document.querySelector('.card-holder').addEventListener('click', async (evt) => {
+document.querySelector('.card-holder').addEventListener('click', async evt => {
 
     const target = evt.target;
 
@@ -222,4 +224,4 @@ document.querySelector('.card-holder').addEventListener('click', async (evt) => 
 
 
 
-export { generateEntry }
+export { generateEntry };

@@ -38,7 +38,7 @@ const server = app.listen(port, () => {
 // GET route
 app.get('/', (req, res) => {
     res.sendFile(path.resolve('../../dist/index.html'));
-})
+});
 
 app.get('/all', (req, res) => {
     res.send(projectData);
@@ -73,7 +73,7 @@ app.post('/geonames', async (req, res) => {
         .then(response => response.json());
 
     // return it to the browser
-    res.json(data)
+    res.json(data);
 });
 
 app.post('/weatherbit', async (req, res) => {
@@ -83,7 +83,7 @@ app.post('/weatherbit', async (req, res) => {
         .then(response => response.json());
 
     // return it to the browser
-    res.json(data)
+    res.json(data);
 });
 
 app.post('/pixabay', async (req, res) => {
@@ -93,7 +93,7 @@ app.post('/pixabay', async (req, res) => {
         .then(response => response.json());
 
     // return it to the browser
-    res.json(data)
+    res.json(data);
 });
 
 module.exports = server;
