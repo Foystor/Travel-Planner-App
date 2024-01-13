@@ -10,7 +10,7 @@ If the trip is within a week, you will get the current weather forecast. If the 
 
 ## Demo
 
-
+https://github.com/Foystor/Travel-Planner-App/assets/74621252/f9b7146d-fed5-4025-84be-a6ad23b248fc
 
 ## Goals
 
