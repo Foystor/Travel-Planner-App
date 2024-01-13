@@ -39,7 +39,7 @@ const getDaysDiff = date => {
     date.setHours(0);
     date.setMinutes(0, 0, 0);
 
-    const diffTime = Math.abs(date - now);
+    const diffTime = date - now;
     const diffDays = parseInt(diffTime / (1000 * 60 * 60 * 24));
 
     return diffDays;
