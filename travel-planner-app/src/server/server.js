@@ -21,10 +21,10 @@ app.use(bodyParser.json());
 app.use(cors());
 
 const dotenv = require('dotenv');
-dotenv.config({ path: '../../.env' });
+dotenv.config({ path: '.env' });
 
 // Initialize the main project folder
-app.use(express.static(path.resolve('../../dist')));
+app.use(express.static(path.resolve('dist')));
 
 // Setup Server
 const port = 8000;
@@ -37,7 +37,7 @@ const server = app.listen(port, () => {
 /* Routes */
 // GET route
 app.get('/', (req, res) => {
-    res.sendFile(path.resolve('../../dist/index.html'));
+    res.sendFile(path.resolve('dist/index.html'));
 });
 
 app.get('/all', (req, res) => {
